@@ -9,7 +9,7 @@ exports.up = async (knex) => {
   return knex.schema.createTable("films", (table) => {
     table.bigIncrements("id")
     table.string("brand").notNullable()
-    table.string("name").notNullable()
+    table.string("name").notNullable().unique
     table.integer("iso").notNullable()
     table.integer("exposureAmount")
     table.timestamp("createdAt").notNullable().defaultTo(knex.fn.now());
