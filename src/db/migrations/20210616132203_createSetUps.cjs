@@ -7,7 +7,7 @@
  */
 exports.up = async (knex) => {
   return knex.schema.createTable("setups", (table) => {
-    table.bigIngrements("id");
+    table.bigIncrements("id");
     table.string("cameraBrand").notNullable();
     table.string("cameraModel").notNullable();
     table.string("lenseBrand");
