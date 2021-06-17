@@ -5,7 +5,8 @@ const filmsRouter = new express.Router();
 
 filmsRouter.get("/", async (req, res) => {
   try {
-    res.status(200).json({ films: "this will be the films from the data base eventually"})
+    const films = await Film.query()
+    res.status(200).json({ films: films })
   } catch (error) {
     res.status(500).json({ errors: error })
   }

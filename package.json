@@ -1,6 +1,7 @@
 {
   "scripts": {
     "start": "node src/app.js",
+    "db:seed": "node ./bin/seed.js",
     "clean": "rm -rf ./public/dist",
     "dev": "yarn run clean && nodemon src/app.js",
     "dev:debug": "nodemon --inspect src/app.js",

@@ -10,8 +10,10 @@ exports.up = async (knex) => {
     table.bigIncrements("id");
     table.string("cameraBrand").notNullable();
     table.string("cameraModel").notNullable();
+    table.string("lenseType");
     table.string("lenseBrand");
     table.string("lenseModel");
+    table.string("focalLength");
     table.string("lenseAperature");
     table.timestamp("createdAt").notNullable().defaultTo(knex.fn.now());
     table.timestamp("updatedAt").notNullable().defaultTo(knex.fn.now());

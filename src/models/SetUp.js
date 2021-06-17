@@ -12,8 +12,10 @@ class SetUp extends Model {
       properties: {
         cameraBrand: { type: "string" },
         cameraModel: { type: "string" },
+        lenseType: { type: "string" },
         lenseBrand: { type: "string" },
         lenseModel: { type: "string" },
+        focalLength: {type: "string" },
         lenseAperature: { type: "string" }
       }
     }

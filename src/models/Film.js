@@ -14,12 +14,12 @@ class Film extends unique(Model) {
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["brand", "name", "iso"],
+      required: ["brand", "name", "iso", "format"],
       properties: {
         brand: { type: "string" },
         name: { type: "string "},
         iso: { type: ["integer", "string"] },
-        exposureAmount: { type: ["integer", "string"] }
+        format: { type: ["string"] }
       }
     }
   }

@@ -5,7 +5,8 @@ const setUpsRouter = new express.Router();
 
 setUpsRouter.get("/", async (req, res) => {
   try {
-    res.status(200).json({ setups: "this will be the setups from the data base eventually" });
+    const setUps = await SetUp.query()
+    res.status(200).json({ setUps: setUps });
   } catch (error) {
     res.status(500).json({ errors: error });
   }

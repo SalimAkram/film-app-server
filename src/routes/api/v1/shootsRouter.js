@@ -5,7 +5,8 @@ const shootsRouter = new express.Router();
 
 shootsRouter.get("/", async (req, res) => {
   try {
-    res.status(200).json({ shoots: "this will be the shoots from the database eventually" })
+    const shoots = await Shoot.query()
+    res.status(200).json({ shoots: shoots })
   } catch (error) {
     res.status(500).json({ errors: error })
   }

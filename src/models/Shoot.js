@@ -1,6 +1,12 @@
 const Model = require("./Model");
+const uniqueFactory = require("objection-unique");
 
-class Shoot extends Model {
+const unique = uniqueFactory({
+  fields: ["name"],
+  identifiers: ["id"]
+})
+
+class Shoot extends unique(Model) {
   static get tableName() {
     return "shoots"
   }
@@ -8,7 +14,7 @@ class Shoot extends Model {
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["name", "film", "loadDate", "unloadDate"],
+      required: ["name"],
       properties: {
         name: { type: "string" },
         film: { type: "string" },

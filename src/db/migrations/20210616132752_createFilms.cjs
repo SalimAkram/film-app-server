@@ -11,7 +11,7 @@ exports.up = async (knex) => {
     table.string("brand").notNullable()
     table.string("name").notNullable().unique
     table.integer("iso").notNullable()
-    table.integer("exposureAmount")
+    table.string("format").notNullable()
     table.timestamp("createdAt").notNullable().defaultTo(knex.fn.now());
     table.timestamp("updatedAt").notNullable().defaultTo(knex.fn.now());
   })
