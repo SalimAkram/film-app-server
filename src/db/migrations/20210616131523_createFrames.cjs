@@ -12,6 +12,12 @@ exports.up = async (knex) => {
     table.integer("shutterSpeed");
     table.integer("frameNumber").unique();
     table.date("date");
+    table
+      .bigInteger("shootId")
+      .unsigned()
+      .notNullable()
+      .index()
+      .references("shoots.id")
     table.timestamp("createdAt").notNullable().defaultTo(knex.fn.now());
     table.timestamp("updatedAt").notNullable().defaultTo(knex.fn.now());
   })

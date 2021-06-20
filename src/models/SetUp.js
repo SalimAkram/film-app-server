@@ -22,8 +22,17 @@ class SetUp extends Model {
   }
   
   static get relationMappings() {
+    const User = require("./User");
+
     return {
-      
+      user: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: User,
+        join: {
+          from: "setups.userId",
+          to: "users.id"
+        }
+      }
     }
   }
 }

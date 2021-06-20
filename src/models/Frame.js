@@ -19,14 +19,22 @@ class Frame extends unique(Model) {
         aperature: { type: ["integer", "string"] },
         shutterSpeed: { type: ["integer", "string"] },
         frameNumber: { type: ["integer", "string"] },
-        date: { type: ["integer", "string"] }
       }
     }
   }
 
-  static get relationMappings(){
-    return {
+  static get relationMappings() {
+    const Shoot = require("./Shoot")
 
+    return {
+      shoot: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Shoot,
+        join: {
+          from: "frames.shootId",
+          to: "shoots.id"
+        }
+      }
     }
   }
 }

@@ -29,8 +29,35 @@ class Shoot extends unique(Model) {
   }
 
   static get relationMappings() {
+    const Frame = require("./Frame")
+    const Location = require("./Location")
+    const User = require("./User")
+
     return {
-      
+      frames: {
+        relation: Model.HasManyRelation,
+        modelClass: Frame,
+        join: {
+          from: "shoots.id",
+          to: "frames.shootId"
+        }
+      },
+      locations: {
+        relation: Model.HasManyRelation,
+        modelClass: Location,
+        join: {
+          from: "shoots.id",
+          to: "locations.shootId"
+        }
+      },
+      user: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: User,
+        join: {
+          from: "shoots.userId",
+          to: "users.id"
+        }
+      }
     }
   }
 }

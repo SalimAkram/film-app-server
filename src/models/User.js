@@ -3,6 +3,7 @@ const Bcrypt = require("bcrypt");
 const unique = require("objection-unique");
 const Model = require("./Model");
 
+
 const saltRounds = 10;
 
 const uniqueFunc = unique({
@@ -26,11 +27,36 @@ class User extends uniqueFunc(Model) {
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["email"],
+      required: ["email", "userName"],
 
       properties: {
         email: { type: "string" },
         cryptedPassword: { type: "string" },
+        userName: { type: "string" },
+      },
+    };
+  }
+
+  static get relationMappings() {
+    const SetUp = require("./SetUp");
+    const Shoot = require("./Shoot");
+
+    return {
+      setups: {
+        relation: Model.HasManyRelation,
+        modelClass: SetUp,
+        join: {
+          from: "users.id",
+          to: "setups.userId",
+        },
+      },
+      shoots: {
+        relation: Model.HasManyRelation,
+        modelClass: Shoot,
+        join: {
+          from: "users.id",
+          to: "shoots.userId",
+        },
       },
     };
   }

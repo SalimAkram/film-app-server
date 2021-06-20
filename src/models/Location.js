@@ -17,9 +17,18 @@ class Location extends Model {
   }
 
   static get relationMappings() {
-    return {
+    const Shoot = require("./Shoot");
 
-    }
+    return {
+      shoot: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Shoot,
+        join: {
+          from: "locations.shootId",
+          to: "shoots.id",
+        },
+      },
+    };
   }
 }
 

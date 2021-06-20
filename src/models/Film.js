@@ -23,12 +23,6 @@ class Film extends unique(Model) {
       }
     }
   }
-
-  static get relationMappings() {
-    return {
-
-    }
-  }
 }
 
 module.exports = Film
