@@ -1,5 +1,9 @@
 import express from "express"
+import objection from "objection"
+const { ValidationError } = objection
+
 import { Film } from "../../../models/index.js"
+import cleanUserInput from "../../../services/cleanUserInput.js"
 
 const filmsRouter = new express.Router();
 
@@ -13,9 +17,16 @@ filmsRouter.get("/", async (req, res) => {
 })
 
 filmsRouter.post("/", async (req, res) => {
+  const { body } = req
+  const formInput = cleanUserInput(body)
+  
   try {
-    res.status(201).json({ film: "this will be the film the user added to the data base" })
+    const newFilm = await Film.query().insertAndFetch(formInput)
+    return res.status(201).json({ newFilm })
   } catch (error) {
+    if( error instanceof ValidationError) {
+      return res.status(422).json({ errors: error.data })
+    }
     res.status(500).json({ errors: error });
   }
 })

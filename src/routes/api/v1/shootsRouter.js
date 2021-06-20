@@ -1,5 +1,9 @@
 import express from "express"
+import objection from "objection"
+const { ValidationError } = objection
+
 import { Shoot } from "../../../models/index.js"
+import cleanUserInput from "../../../services/cleanUserInput.js"
 
 const shootsRouter = new express.Router();
 
@@ -12,10 +16,28 @@ shootsRouter.get("/", async (req, res) => {
   }
 })
 
-shootsRouter.post("/", async (req, res) => {
-  try {
-    res.status(200).json({ shoot: "this will be the updated shoot" })
+shootsRouter.get("/:id", async (req, res) => {
+  try { 
+    const shoot = await Shoot.query().findById(req.params.id)
+    shoot.locations = await shoot.$relatedQuery("locations")
+    shoot.frames = await shoot.$relatedQuery("frames")
+    res.status(200).json({ shoot: shoot })
   } catch (error) {
+    res.status(500).json({ errors: error })
+  }
+})
+
+shootsRouter.post("/", async (req, res) => {
+  const { body } = req
+  const formInput = cleanUserInput(body)
+  
+  try {
+    const newShoot = await Shoot.query().insertAndFetch(formInput)
+    res.status(200).json({ newShoot })
+  } catch (error) {
+    if (error instanceof ValidationError) {
+      return res.status(422).json({ errors: error.data })
+    }
     res.status(500).json({ errors: error });
   }
 })

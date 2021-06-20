@@ -1,5 +1,9 @@
 import express from "express"
+import objection  from "objection";
+const  { ValidationError } = objection
+
 import { SetUp } from "../../../models/index.js"
+import cleanUserInput from "../../../services/cleanUserInput.js";
 
 const setUpsRouter = new express.Router();
 
@@ -13,9 +17,16 @@ setUpsRouter.get("/", async (req, res) => {
 })
 
 setUpsRouter.post("/", async (req, res) => {
+  const { body } = req
+  const formInput = cleanUserInput(body)
+  
   try {
-    res.status(201).json({ setup: "this will be the setup the user added to the data base" });
+    const newSetUp = await SetUp.query().insertAndFetch(formInput)
+    return res.status(201).json({ newSetUp });
   } catch (error) {
+    if (error instanceof ValidationError) {
+      res.status(422).json({ errors: error.data })
+    }
     res.status(500).json({ errors: error });
   }
 })
