@@ -5,6 +5,11 @@ class ShootSeeder {
     const shootsData = [
       {
         name: "Billie A Universal Studios",
+        userId: 1
+      },
+      {
+        name: "Bad Rabbits shooting for EP release",
+        userId: 2
       }
     ]
     for (const singleShootData of shootsData) {
