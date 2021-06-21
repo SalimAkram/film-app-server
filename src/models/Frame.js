@@ -19,6 +19,7 @@ class Frame extends unique(Model) {
         aperature: { type: ["integer", "string"] },
         shutterSpeed: { type: ["integer", "string"] },
         frameNumber: { type: ["integer", "string"] },
+        notes: {type: "string" }
       }
     }
   }

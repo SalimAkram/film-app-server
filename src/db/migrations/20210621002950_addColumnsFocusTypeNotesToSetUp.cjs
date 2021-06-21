@@ -6,8 +6,9 @@
  * @param {Knex} knex
  */
 exports.up = async (knex) => {
-    return knex.schema.table("frames", (table) => {
+  return knex.schema.table("setups", (table) =>{
     table.string("notes")
+    table.string("focusType")
   })
 }
 
@@ -15,7 +16,8 @@ exports.up = async (knex) => {
  * @param {Knex} knex
  */
 exports.down = (knex) => {
-  return knex.schema.table("frames", (table) => {
+  return knex.schema.table("setups", (table) => {
     table.dropColumn("notes")
+    table.dropColumn("focusType")
   })
 }

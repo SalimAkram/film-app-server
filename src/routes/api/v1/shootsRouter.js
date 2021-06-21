@@ -5,7 +5,13 @@ const { ValidationError } = objection
 import { Shoot } from "../../../models/index.js"
 import cleanUserInput from "../../../services/cleanUserInput.js"
 
+import shootFramesRouter from "./shootFramesRouter.js"
+import shootLocationsRouter from "./shootLocationsRouter.js"
+
 const shootsRouter = new express.Router();
+
+shootsRouter.use("/:shootId/frames", shootFramesRouter)
+shootsRouter.use("/:shootId/locations", shootLocationsRouter)
 
 shootsRouter.get("/", async (req, res) => {
   try {
