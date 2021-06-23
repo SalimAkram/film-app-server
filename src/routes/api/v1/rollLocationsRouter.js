@@ -5,18 +5,18 @@ const { ValidationError } = objection
 import Location from "../../../models/Location.js"
 import cleanUserInput from "../../../services/cleanUserInput.js"
 
-const shootLocationsRouter = new express.Router({ mergeParams: true })
+const rollLocationsRouter = new express.Router({ mergeParams: true })
 
-shootLocationsRouter.post("/", async (req, res) => {
+rollLocationsRouter.post("/", async (req, res) => {
   const { body } = req
   const formInput = cleanUserInput(body)
   const { longitude, latitude } = formInput
-  const { shootId } = req.params
+  const { rollId } = req.params
 
   debugger
 
   try {
-    const newLocation = await Location.query().insertAndFetch({ longitude, latitude, shootId })
+    const newLocation = await Location.query().insertAndFetch({ longitude, latitude, rollId })
     return res.status(201).json({ location: newLocation })
   } catch (error) {
     if (error instanceof ValidationError) {
@@ -26,4 +26,4 @@ shootLocationsRouter.post("/", async (req, res) => {
   }
 })
 
-export default shootLocationsRouter;
+export default rollLocationsRouter;

@@ -13,11 +13,11 @@ exports.up = async (knex) => {
     table.integer("frameNumber").unique();
     table.date("date");
     table
-      .bigInteger("shootId")
+      .bigInteger("rollId")
       .unsigned()
       .notNullable()
       .index()
-      .references("shoots.id")
+      .references("rolls.id")
     table.timestamp("createdAt").notNullable().defaultTo(knex.fn.now());
     table.timestamp("updatedAt").notNullable().defaultTo(knex.fn.now());
   })

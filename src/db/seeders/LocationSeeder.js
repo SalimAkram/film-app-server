@@ -6,22 +6,22 @@ class LocationSeeder {
       {
         latitude: "48.98261",
         longitude: "-42.35371",
-        shootId: 1
+        rollId: 1
       },
       {
         latitude: "48.99261",
         longitude: "-38.35371",
-        shootId: 1
+        rollId: 1
       },
       {
         latitude: "48.90061",
         longitude: "-13.35371",
-        shootId: 2
+        rollId: 2
       },
       {
         latitude: "48.93361",
         longitude: "-52.35371",
-        shootId: 2
+        rollId: 2
       }
     ]
 

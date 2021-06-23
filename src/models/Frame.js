@@ -25,15 +25,15 @@ class Frame extends unique(Model) {
   }
 
   static get relationMappings() {
-    const Shoot = require("./Shoot")
+    const Roll = require("./Roll")
 
     return {
-      shoot: {
+      roll: {
         relation: Model.BelongsToOneRelation,
-        modelClass: Shoot,
+        modelClass: Roll,
         join: {
-          from: "frames.shootId",
-          to: "shoots.id"
+          from: "frames.rollId",
+          to: "rolls.id"
         }
       }
     }

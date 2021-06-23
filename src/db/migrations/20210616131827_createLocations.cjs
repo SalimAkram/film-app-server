@@ -11,11 +11,11 @@ exports.up = async (knex) => {
     table.integer("longitude").notNullable()
     table.integer("latitude").notNullable()
     table
-      .bigInteger("shootId")
+      .bigInteger("rollId")
       .unsigned()
       .notNullable()
       .index()
-      .references("shoots.id")
+      .references("rolls.id")
     table.timestamp("createdAt").notNullable().defaultTo(knex.fn.now());
     table.timestamp("updatedAt").notNullable().defaultTo(knex.fn.now());
   })

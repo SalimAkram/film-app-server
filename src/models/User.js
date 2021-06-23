@@ -39,7 +39,7 @@ class User extends uniqueFunc(Model) {
 
   static get relationMappings() {
     const SetUp = require("./SetUp");
-    const Shoot = require("./Shoot");
+    const Roll = require("./Roll");
 
     return {
       setups: {
@@ -50,12 +50,12 @@ class User extends uniqueFunc(Model) {
           to: "setups.userId",
         },
       },
-      shoots: {
+      rolls: {
         relation: Model.HasManyRelation,
-        modelClass: Shoot,
+        modelClass: Roll,
         join: {
           from: "users.id",
-          to: "shoots.userId",
+          to: "rolls.userId",
         },
       },
     };

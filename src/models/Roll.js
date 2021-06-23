@@ -6,9 +6,9 @@ const unique = uniqueFactory({
   identifiers: ["id"]
 })
 
-class Shoot extends unique(Model) {
+class Roll extends unique(Model) {
   static get tableName() {
-    return "shoots"
+    return "rolls"
   }
 
   static get jsonSchema() {
@@ -38,23 +38,23 @@ class Shoot extends unique(Model) {
         relation: Model.HasManyRelation,
         modelClass: Frame,
         join: {
-          from: "shoots.id",
-          to: "frames.shootId"
+          from: "rolls.id",
+          to: "frames.rollId"
         }
       },
       locations: {
         relation: Model.HasManyRelation,
         modelClass: Location,
         join: {
-          from: "shoots.id",
-          to: "locations.shootId"
+          from: "rolls.id",
+          to: "locations.rollId"
         }
       },
       user: {
         relation: Model.BelongsToOneRelation,
         modelClass: User,
         join: {
-          from: "shoots.userId",
+          from: "rolls.userId",
           to: "users.id"
         }
       }
@@ -62,4 +62,4 @@ class Shoot extends unique(Model) {
   }
 }
 
-module.exports = Shoot
+module.exports = Roll

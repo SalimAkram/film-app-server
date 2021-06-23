@@ -6,7 +6,7 @@
  * @param {Knex} knex
  */
 exports.up = async (knex) => {
-  return knex.schema.table("shoots", (table) => {
+  return knex.schema.table("rolls", (table) => {
     table
     .bigInteger("userId")
     .unsigned()
