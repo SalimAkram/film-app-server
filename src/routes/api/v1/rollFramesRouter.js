@@ -4,6 +4,7 @@ const { ValidationError } = objection
 
 import Frame from "../../../models/Frame.js"
 import cleanUserInput from "../../../services/cleanUserInput.js"
+import currentFrameLocation from "../../../services/currentFrameLocation.js"
 
 const rollFramesRouter = new express.Router({ mergeParams: true })
 
@@ -12,9 +13,11 @@ rollFramesRouter.post("/", async (req, res) => {
   const formInput = cleanUserInput(body)
   const { aperature, shutterSpeed, frameNumber, notes } = formInput
   const { rollId } = req.params
-
+  const location   = await currentFrameLocation(rollId)
+  
   try {
-    const newFrame = await Frame.query().insertAndFetch({ aperature, shutterSpeed, frameNumber, notes, rollId })
+
+    const newFrame = await Frame.query().insertAndFetch({ aperature, shutterSpeed, frameNumber, notes, location, rollId  })
     return res.status(201).json({ frame: newFrame })
   } catch (error) {
     if (error instanceof ValidationError) {

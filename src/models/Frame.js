@@ -1,4 +1,5 @@
 const Model = require("./Model");
+const Roll = require("./Roll")
 const uniqueFactory = require("objection-unique")
 
 const unique  = uniqueFactory({
@@ -19,6 +20,7 @@ class Frame extends unique(Model) {
         aperature: { type: ["integer", "string"] },
         shutterSpeed: { type: ["integer", "string"] },
         frameNumber: { type: ["integer", "string"] },
+        location: { type: "json" },
         notes: {type: "string" }
       }
     }
