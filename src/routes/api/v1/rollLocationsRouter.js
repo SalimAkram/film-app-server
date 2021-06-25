@@ -13,8 +13,6 @@ rollLocationsRouter.post("/", async (req, res) => {
   const { longitude, latitude } = formInput
   const { rollId } = req.params
 
-  debugger
-
   try {
     const newLocation = await Location.query().insertAndFetch({ longitude, latitude, rollId })
     return res.status(201).json({ location: newLocation })
