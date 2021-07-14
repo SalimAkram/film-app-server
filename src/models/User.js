@@ -3,7 +3,6 @@ const Bcrypt = require("bcrypt");
 const unique = require("objection-unique");
 const Model = require("./Model");
 
-
 const saltRounds = 10;
 
 const uniqueFunc = unique({
@@ -27,13 +26,12 @@ class User extends uniqueFunc(Model) {
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["email", "userName"],
+      required: ["email"],
 
       properties: {
         email: { type: "string" },
-        cryptedPassword: { type: "string" },
-        userName: { type: "string" },
-      },
+        cryptedPassword: { type: "string" }
+      }
     };
   }
 
