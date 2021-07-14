@@ -5,68 +5,68 @@ class FilmSeeder {
     const filmsData = [
       {
         brand: "kodak",
-        name: "porta 400",
+        filmName: "porta 400",
         iso: 400,
         format: "35mm",
       },
       {
         brand: "kodak",
-        name: "porta 160",
+        filmName: "porta 160",
         iso: 160,
         format: "35mm",
       },
       {
         brand: "kodak",
-        name: "porta 800",
+        filmName: "porta 800",
         iso: 800,
         format: "35mm",
       },
       {
         brand: "fujifilm",
-        name: "pro400H",
+        filmName: "pro400H",
         iso: 400,
         format: "35mm",
       },
       {
         brand: "fujifilm",
-        name: "fujicolor 200",
+        filmName: "fujicolor 200",
         iso: 200,
         format: "35mm",
       },
       {
         brand: "fujifilm",
-        name: "fujicolor 100",
+        filmName: "fujicolor 100",
         iso: 100,
         format: "35mm",
       },
       {
         brand: "cinestill",
-        name: "50D",
+        filmName: "50D",
         iso: 50,
         format: "35mm",
       },
       {
         brand: "cinestill",
-        name: "800T",
+        filmName: "800T",
         iso: 800,
         format: "35mm",
       },
       {
         brand: "lomography",
-        name: "lomo 800",
+        filmName: "lomo 800",
         iso: 800,
         format: "120",
       },
       {
         brand: "lomography",
-        name: "lomo 100",
+        filmName: "lomo 100",
         iso: 100,
         format: "120",
       },
     ]
 
     for (const singleFilmData of filmsData) {
-      const currentFilm = await Film.query().findOne({ name: singleFilmData.name })
+      const currentFilm = await Film.query().findOne({ filmName: singleFilmData.filmName })
       if (!currentFilm) {
         await Film.query().insert(singleFilmData)
       }
