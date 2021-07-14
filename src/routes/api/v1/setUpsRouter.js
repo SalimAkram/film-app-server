@@ -3,6 +3,7 @@ import objection  from "objection";
 const  { ValidationError } = objection;
 
 import { SetUp } from "../../../models/index.js";
+import { User } from "../../../models/index.js"
 import cleanUserInput from "../../../services/cleanUserInput.js";
 
 const setUpsRouter = new express.Router();
@@ -19,10 +20,14 @@ setUpsRouter.get("/", async (req, res) => {
 setUpsRouter.post("/", async (req, res) => {
   const { body } = req
   const formInput = cleanUserInput(body)
-  
+  const userId = req.user.id
   try {
-    const newSetUp = await SetUp.query().insertAndFetch(formInput)
-    return res.status(201).json({ newSetUp });
+    const user = await User.query().findById(userId)
+    if (!user) {
+      return res.status(400).json({ errors: "user does not exist!" });
+    }
+    const newSetUp = await user.$relatedQuery('setups').insert(formInput)
+    return res.status(201).json({ newSetUp, message: "new setup added!" });
   } catch (error) {
     if (error instanceof ValidationError) {
       res.status(422).json({ errors: error.data })
