@@ -2,7 +2,7 @@ const Model = require("./Model");
 const uniqueFactory = require("objection-unique");
 
 const unique = uniqueFactory({
-  fields: ["name"],
+  fields: ["rollName"],
   identifiers: ["id"]
 })
 
@@ -14,9 +14,9 @@ class Roll extends unique(Model) {
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["name"],
+      required: ["rollName"],
       properties: {
-        name: { type: "string" },
+        rollName: { type: "string" },
         film: { type: "string" },
         cameraSetup: { type: "string" },
         weather: { type: "string" },

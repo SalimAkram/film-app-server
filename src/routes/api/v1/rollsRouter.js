@@ -3,6 +3,7 @@ import objection from "objection"
 const { ValidationError } = objection
 
 import { Roll } from "../../../models/index.js"
+import { User } from "../../../models/index.js"
 import cleanUserInput from "../../../services/cleanUserInput.js"
 
 import rollFramesRouter from "./rollFramesRouter.js"
@@ -15,14 +16,15 @@ rollsRouter.use("/:rollId/locations", rollLocationsRouter)
 
 rollsRouter.get("/", async (req, res) => {
   try {
-    const rolls = await Roll.query()
-    res.status(200).json({ rolls: rolls })
+    const rolls = await Roll.query().where("userId", 1)
+    res.status(200).json({ rolls })
   } catch (error) {
     res.status(500).json({ errors: error })
   }
 })
 
 rollsRouter.get("/:id", async (req, res) => {
+  
   try { 
     const roll = await Roll.query().findById(req.params.id)
     roll.locations = await roll.$relatedQuery("locations")
@@ -36,9 +38,15 @@ rollsRouter.get("/:id", async (req, res) => {
 rollsRouter.post("/", async (req, res) => {
   const { body } = req
   const formInput = cleanUserInput(body)
+  const userId = req.user.id
   
   try {
-    const newRoll = await Roll.query().insertAndFetch(formInput)
+    const user = await User.query().findById(userId);
+    if (!user) {
+      return res.status(400).json({ errors: "user does not exist!"})
+    }
+    const newRoll = await user.$relatedQuery('rolls').insert(formInput)
+    debugger
     res.status(200).json({ newRoll })
   } catch (error) {
     if (error instanceof ValidationError) {

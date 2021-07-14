@@ -8,7 +8,7 @@
 exports.up = async (knex) => {
   return knex.schema.createTable("rolls", (table) => {
     table.bigIncrements("id");
-    table.string("name").notNullable().unique();
+    table.string("rollName").notNullable().unique();
     table.string("film");
     table.string("cameraSetup");
     table.string("weather");
