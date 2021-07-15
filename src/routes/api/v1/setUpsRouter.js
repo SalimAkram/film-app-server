@@ -17,6 +17,16 @@ setUpsRouter.get("/", async (req, res) => {
   }
 })
 
+setUpsRouter.get("/:id", async (req, res) => {
+  const id = req.params.id
+  try {
+    const setUp = await SetUp.query().findById(id)
+    res.status(200).json({ setUp: setUp });
+  } catch (error) {
+    res.status(500).json({ errors: error });
+  }
+})
+
 setUpsRouter.post("/", async (req, res) => {
   const { body } = req
   const formInput = cleanUserInput(body)

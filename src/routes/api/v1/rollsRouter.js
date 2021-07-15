@@ -24,9 +24,9 @@ rollsRouter.get("/", async (req, res) => {
 })
 
 rollsRouter.get("/:id", async (req, res) => {
-  
+  const id =  req.params.id
   try { 
-    const roll = await Roll.query().findById(req.params.id)
+    const roll = await Roll.query().findById(id)
     roll.locations = await roll.$relatedQuery("locations")
     roll.frames = await roll.$relatedQuery("frames")
     res.status(200).json({ roll: roll })
@@ -46,7 +46,6 @@ rollsRouter.post("/", async (req, res) => {
       return res.status(400).json({ errors: "user does not exist!"})
     }
     const newRoll = await user.$relatedQuery('rolls').insert(formInput)
-    debugger
     res.status(200).json({ newRoll })
   } catch (error) {
     if (error instanceof ValidationError) {
