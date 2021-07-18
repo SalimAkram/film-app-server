@@ -1,13 +1,6 @@
 const Model = require("./Model");
-const Roll = require("./Roll")
-const uniqueFactory = require("objection-unique")
 
-const unique  = uniqueFactory({
-  fields: ["frameNumber"],
-  identifiers: ["id"]
-})
-
-class Frame extends unique(Model) {
+class Frame extends Model {
   static get tableName() {
     return "frames"
   }

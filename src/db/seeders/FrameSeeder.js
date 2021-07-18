@@ -62,10 +62,7 @@ class FrameSeeder {
     ];
 
     for (const singleFrameData of framesData) {
-      const currentFrame = await Frame.query().findOne({ frameNumber: singleFrameData.frameNumber })
-      if (!currentFrame) {
-        await Frame.query().insert(singleFrameData)
-      }
+      await Frame.query().insert(singleFrameData)
     }
   }
 }

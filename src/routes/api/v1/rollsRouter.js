@@ -5,6 +5,7 @@ const { ValidationError } = objection
 import { Roll } from "../../../models/index.js"
 import { User } from "../../../models/index.js"
 import cleanUserInput from "../../../services/cleanUserInput.js"
+import validateCurrentUser from "../../../services/validateCurrentUser.js"
 
 import rollFramesRouter from "./rollFramesRouter.js"
 import rollLocationsRouter from "./rollLocationsRouter.js"
@@ -15,8 +16,9 @@ rollsRouter.use("/:rollId/frames", rollFramesRouter)
 rollsRouter.use("/:rollId/locations", rollLocationsRouter)
 
 rollsRouter.get("/", async (req, res) => {
+  const userId = req.user.id
   try {
-    const rolls = await Roll.query().where("userId", 1)
+    const rolls = await Roll.query().where("userId", userId)
     res.status(200).json({ rolls })
   } catch (error) {
     res.status(500).json({ errors: error })

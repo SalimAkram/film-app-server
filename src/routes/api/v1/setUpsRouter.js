@@ -73,6 +73,7 @@ setUpsRouter.patch("/:id", async (req, res) => {
 
 
 setUpsRouter.delete("/:id", async (req, res) => {
+  debugger
   try {
     const setup = await SetUp.query().deleteById(req.params.id)
     if (!setup) {

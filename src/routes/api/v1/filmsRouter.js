@@ -19,7 +19,7 @@ filmsRouter.get("/", async (req, res) => {
 filmsRouter.post("/", async (req, res) => {
   const { body } = req
   const formInput = cleanUserInput(body)
-  
+
   try {
     const newFilm = await Film.query().insertAndFetch(formInput)
     return res.status(201).json({ newFilm })

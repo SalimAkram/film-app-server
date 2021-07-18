@@ -10,7 +10,7 @@ exports.up = async (knex) => {
     table.bigIncrements("id");
     table.integer("aperature");
     table.integer("shutterSpeed");
-    table.integer("frameNumber").unique();
+    table.integer("frameNumber");
     table.date("date");
     table
       .bigInteger("rollId")

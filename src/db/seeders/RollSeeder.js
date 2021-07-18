@@ -4,7 +4,7 @@ class RollSeeder {
   static async seed() {
     const rollsData = [
       {
-        rollName: "Billie A Universal Studios",
+        rollName: "Billie At Universal Studios",
         userId: 1
       },
       {
