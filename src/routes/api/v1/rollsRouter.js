@@ -27,8 +27,15 @@ rollsRouter.get("/", async (req, res) => {
 
 rollsRouter.get("/:id", async (req, res) => {
   const id =  req.params.id
+  
   try { 
     const roll = await Roll.query().findById(id)
+    if(!roll) {
+      return res.status(404).json({ errors: "this roll doesn't exist!" })
+    }
+    if(!validateCurrentUser(req.user, roll)) {
+      return res.status(403).json({ errors: "you don't have access to this roll" })
+    }
     roll.locations = await roll.$relatedQuery("locations")
     roll.frames = await roll.$relatedQuery("frames")
     res.status(200).json({ roll: roll })
