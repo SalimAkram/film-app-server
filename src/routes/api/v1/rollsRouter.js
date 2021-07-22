@@ -66,24 +66,18 @@ rollsRouter.post("/", async (req, res) => {
 
 rollsRouter.patch("/:id", async (req, res) => {
   const updates = Object.keys(req.body)
-  const allowedUpdates = ["name", "film", "notes", "weather", "loadDate", "unloadDate"]
-  const isValidOperation = updates.every((update) => {
-    return allowedUpdates.includes(update)
-  })
-  
-  if (!isValidOperation) {
-    res.status(400).json({ error: "invalid update(s)!"})
-  }
-
+  const id = req.params.id
+    
   try {
-    const roll = await Roll.query().findById(req.params.id)
+    const roll = await Roll.query().findById(id)
     if (!roll) {
       return res.status(404).json({ error: "this roll doesnt exist?"})
     }
-    updates.forEach((update) => {
+    const newRoll = updates.forEach((update) => {
       roll[update] = req.body[update]
     })
-    res.status(200).json({ roll: roll })
+    const updatedRoll = await roll.$query().patchAndFetch(newRoll)
+    res.status(200).json({ updatedRoll: updatedRoll })
   } catch (error) {
     res.status(500).json({ errors: error })
   }

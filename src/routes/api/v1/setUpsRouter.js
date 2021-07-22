@@ -57,24 +57,19 @@ setUpsRouter.post("/", async (req, res) => {
 
 setUpsRouter.patch("/:id", async (req, res) => {
   const updates = Object.keys(req.body)
-  const allowedUpdates = ["cameraBrand", "cameraModel", "lenseType", "lenseBrand", "lenseModel", "focalLength", "lenseAperature", "notes", "focusType"]
-  const isValidOperation = updates.every((update) => {
-    return allowedUpdates.includes(update)
-  })
-
-  if(!isValidOperation) {
-    res.status(400).json({ error: "invalid updates(s)!"})
-  }
+  const id = req.params.id
 
   try {
-    const setUp = await SetUp.query().findById(req.params.id)
+    const setUp = await SetUp.query().findById(id)
     if(!setUp) {
       return res.status(404).json({ error:  "this set up deosnt exist?"})
     }
-    updates.forEach((update) => {
+    const newSetUp = updates.forEach((update) => {
       setUp[update] = req.body[update]
     })
-    res.status(200).json({ setUp: setUp });
+    const updatedSetUp =  await setUp.$query().patchAndFetch(newSetUp)
+    debugger
+    res.status(200).json({ updatedSetUp: updatedSetUp });
   } catch (error) {
     res.status(500).json({ errors: error });
   }
