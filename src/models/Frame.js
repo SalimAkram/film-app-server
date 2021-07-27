@@ -8,7 +8,7 @@ class Frame extends Model {
   static get jsonSchema() {
     return {
       type: "object",
-      required: [],
+      required: ["aperature", "shutterSpeed"],
       properties: {
         aperature: { type: ["integer", "string"] },
         shutterSpeed: { type: ["integer", "string"] },
