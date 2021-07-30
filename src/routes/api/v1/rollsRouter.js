@@ -71,7 +71,7 @@ rollsRouter.patch("/:id", async (req, res) => {
   try {
     const roll = await Roll.query().findById(id)
     if (!roll) {
-      return res.status(404).json({ error: "this roll doesnt exist?"})
+      return res.status(404).json({ error: "this roll doesn't exist?"})
     }
     const newRoll = updates.forEach((update) => {
       roll[update] = req.body[update]

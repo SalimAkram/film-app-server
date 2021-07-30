@@ -11,7 +11,8 @@ const clientRoutes = [
   "/setups/:id", "/rolls/:id", 
   "/rolls/:id/frames/new", 
   "/rolls/:id/edit", 
-  "/setups/:id/edit"
+  "/setups/:id/edit",
+  "/rolls/:id/frames/:frameId/edit"
 ];
 router.get(clientRoutes, (req, res) => {
   res.sendFile(getClientIndexPath());

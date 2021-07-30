@@ -62,19 +62,17 @@ setUpsRouter.patch("/:id", async (req, res) => {
   try {
     const setUp = await SetUp.query().findById(id)
     if(!setUp) {
-      return res.status(404).json({ error:  "this set up deosnt exist?"})
+      return res.status(404).json({ error:  "this set up doesn't exist?"})
     }
     const newSetUp = updates.forEach((update) => {
       setUp[update] = req.body[update]
     })
     const updatedSetUp =  await setUp.$query().patchAndFetch(newSetUp)
-    debugger
     res.status(200).json({ updatedSetUp: updatedSetUp });
   } catch (error) {
     res.status(500).json({ errors: error });
   }
 })
-
 
 setUpsRouter.delete("/:id", async (req, res) => {
   try {
