@@ -2,7 +2,7 @@ import express from "express"
 import objection from "objection"
 const { ValidationError } = objection
 
-import Frame from "../../../models/Frame.js"
+import { Frame } from "../../../models/index.js"
 import cleanUserInput from "../../../services/cleanUserInput.js"
 import currentFrameLocation from "../../../services/currentFrameLocation.js"
 
